@@ -1,0 +1,45 @@
+{
+  "name": "fend-neighbourhood-map",
+  "version": "1.0.0",
+  "description": "Single Page Application to discover interesting places in your neighbourhood",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist",
+    "build": "./node_modules/.bin/gulp build",
+    "deploy": "./node_modules/.bin/gh-pages-deploy",
+    "compile": "npm run clean && npm run build",
+    "runserver": "./node_modules/.bin/http-server -p 8080 dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divyanshutomar/fend-neighbourhood-map.git"
+  },
+  "gh-pages-deploy": {
+    "staticpath": "dist"
+  },
+  "keywords": [
+    "neighbourhood",
+    "nanodegree",
+    "project",
+    "google maps"
+  ],
+  "author": "Divyanshu Tomar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/divyanshutomar/fend-neighbourhood-map/issues"
+  },
+  "homepage": "https://github.com/divyanshutomar/fend-neighbourhood-map#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-htmlclean": "^2.7.9",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^2.0.1"
+  },
+  "devDependencies": {
+    "gh-pages-deploy": "^0.4.2",
+    "http-server": "^0.9.0"
+  }
+}
