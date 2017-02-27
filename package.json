@@ -8,15 +8,14 @@
     "clean": "rm -rf dist",
     "build": "./node_modules/.bin/gulp build",
     "deploy": "./node_modules/.bin/gh-pages-deploy",
-    "compile": "npm run clean && npm run build",
-    "runserver": "./node_modules/.bin/http-server -p 8080 dist"
+    "runserver": "./node_modules/.bin/http-server -p 8080 src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/divyanshutomar/fend-neighbourhood-map.git"
   },
   "gh-pages-deploy": {
-    "staticpath": "dist"
+    "staticpath": "src"
   },
   "keywords": [
     "neighbourhood",
