@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighbourhood Map</title>
+    <link rel="stylesheet" href="css/bulma.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <nav class="nav has-shadow">
+        <div class="container">
+            <div class="nav-left">
+            <a class="nav-item">
+                <i id="nav-button" class="nav-button fa fa-lg fa-minus" data-bind="click: navClick, css: {'fa-arrow-circle-down': isNavClosed}"></i>
+            </a>
+            <a class="nav-item">
+                Neighbourhood Restaurants
+            </a>
+            </div>
+            <div class="nav-right">
+                <p style="color:red;" data-bind="text: errorStr"></p>
+            </div>
+        </div>
+    </nav>
+    <nav class="panel" id='placelist' data-bind="css: {'hideNav': isNavClosed}">
+        <p class="panel-heading">
+            Restaurants in Rohini, Delhi
+        </p>
+        <div class="panel-block">
+            <p class="control has-icon">
+            <input data-bind="textInput: filterStr, valueUpdate:'afterkeydown'" autocomplete="off" class="input" type="text" placeholder="Filter">
+            <span class="icon">
+                <i class="fa fa-filter"></i>
+            </span>
+            </p>
+        </div>
+        <div data-bind="foreach: filteredRestList, visible: filteredRestList().length > 0">
+            <a class="panel-block" data-bind= "click: $root.itemClick">
+                <span class="panel-icon">
+                <i class="fa fa-cutlery"></i>
+                </span>
+                <p data-bind= "text: name"></p>
+            </a>
+        </div>
+    </nav>
+    <div id="map"></div>
+    <div id="error-map"></div>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/knockout-3.4.1.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8T_p4x9t6zhea3RwLlJzRWwG1KX5p7JA&callback=initMap"
+    async defer onerror="setMapErrorText()"></script>
+</body>
+</html>
