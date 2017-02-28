@@ -91,10 +91,10 @@ var map;
 var infoWindow;
 var mapBounds;
 
-// Function to set error on page
-function setErrorText() {
-    document.getElementById('errorMessage').style.display = 'block';
-    document.getElementById('errorMessage').innerHTML = 'Sorry, something went wrong. Please try again later.';
+// Function to set map error on page
+function setMapErrorText() {
+    document.getElementById('error-map').style.display = 'block';
+    document.getElementById('error-map').innerHTML = 'Sorry, something went wrong while loading maps. Please try again later.';
 }
 // Function called when google maps script gets executed upon page load
 function initMap() {
@@ -117,7 +117,7 @@ function initMap() {
             targetMarker.setAnimation(google.maps.Animation.BOUNCE);
             setTimeout(function() {
                 targetMarker.setAnimation(null);
-            }, 400);
+            }, 700);
         }
     };
 
@@ -139,10 +139,11 @@ function initMap() {
 
     // Function to generate content for Restaurant's Info InfoWindow
     function generateInfoContent(restObj) {
+        imageStr = restObj.imageURL ? `<img src=${restObj.imageURL} style='width:200px;height:120px' />` : "<p>No image found for this restaurant.</p>"
         var contentString = `<div class='container'>
             <h2>Restaurant Info :</h2>
             <h4>${restObj.name}</h4>
-            <img src=${restObj.imageURL} style='width:200px;height:120px' />
+            ${imageStr}
             <h4>Restaurant Rating : ${restObj.ratingVal}/5.0</h4>
             <h4>Cuisines : ${restObj.cuisines}</h4>
             <hr/>
@@ -157,8 +158,10 @@ function initMap() {
     }
 
     // Knockout's Controller
-    function KO_ViewModel() {
+    function koViewModel() {
         var self = this;
+
+        self.errorStr = ko.observable("");
 
         this.isNavClosed = ko.observable(false);
         this.navClick = function () {
@@ -209,7 +212,7 @@ function initMap() {
                         item.cuisines = data.cuisines;
                     },
                     error: function(error) {
-                        setErrorText();
+                        self.errorStr(`Error : ${JSON.parse(error.responseText).message}`)
                     }
                 });
            });
@@ -222,7 +225,7 @@ function initMap() {
 
         self.filterStr = ko.observable("");
 
-        this.filteredRestList = ko.dependentObservable(function() {
+        this.filteredRestList = ko.computed(function() {
             var query = this.filterStr().toLowerCase();
             //var self = this;
             if (!query) {
@@ -245,5 +248,5 @@ function initMap() {
         };
     
     // Applying Knockout bindings
-    ko.applyBindings(new KO_ViewModel());
+    ko.applyBindings(new koViewModel());
 }
